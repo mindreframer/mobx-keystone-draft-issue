@@ -3,11 +3,11 @@ import { toJS } from "mobx";
 import { undoMiddleware } from "mobx-keystone";
 import "./commonSetup";
 import {
-  Form2,
   Root,
   Settings,
   SettingsUtils,
-  Tag,
+  ITag,
+  IForm2,
 } from "./use-with-undo-plain";
 
 const logAll = (v: any, label = "") => {
@@ -19,7 +19,7 @@ describe("Root", () => {
     const root = new Root({});
     root.setSettings(new Settings({}));
     const settings = new Settings({
-      tags: [new Tag({ label: "tag1" }), new Tag({ label: "tag2" })],
+      tags: [{ label: "tag1" }, { label: "tag2" }],
     });
     root.setSettings(settings);
     const undoManagerSettingsDraft = undoMiddleware(root.settingsDraft!.data);
@@ -47,14 +47,12 @@ describe("Root", () => {
       "Undo Events with forms"
     );
 
-    draftModel.data.arrayPush(
-      draftModel.data.form1List[0].tags,
-      new Tag({ label: "tag1" })
-    );
-    draftModel.data.arrayPush(
-      draftModel.data.form1List[0].tags,
-      new Tag({ label: "tag2" })
-    );
+    draftModel.data.arrayPush(draftModel.data.form1List[0].tags, {
+      label: "tag1",
+    });
+    draftModel.data.arrayPush(draftModel.data.form1List[0].tags, {
+      label: "tag2",
+    });
 
     expect(draftModel.data.form1List[0].tags).toMatchSnapshot(
       "tags form1 - 0 - 2 tags added"
@@ -78,7 +76,7 @@ describe("Root", () => {
   it("should support path resolution", () => {
     const root = new Root({});
     const settings = new Settings({
-      tags: [new Tag({ label: "tag1" }), new Tag({ label: "tag2" })],
+      tags: [{ label: "tag1" }, { label: "tag2" }],
     });
     root.setSettings(settings);
     const undoManagerSettingsDraft = undoMiddleware(root.settingsDraft!.data);
@@ -99,7 +97,7 @@ describe("Root", () => {
   it("should remember selected path and restore it on settings update", () => {
     const root = new Root({});
     const settings = new Settings({
-      tags: [new Tag({ label: "tag1" }), new Tag({ label: "tag2" })],
+      tags: [{ label: "tag1" }, { label: "tag2" }],
     });
     root.setSettings(settings);
     const draftModel = root.settingsDraft!;
@@ -116,9 +114,9 @@ describe("Root", () => {
     // prepare new settings with different data, imagine this is the response from the backend
 
     const settings2 = new Settings({
-      tags: [new Tag({ label: "tag1" }), new Tag({ label: "tag2" })],
+      tags: [{ label: "tag1" }, { label: "tag2" }],
     });
-    settings2.setForm2List([new Form2({ name: "changed from backend!" })]);
+    settings2.setForm2List([{ name: "changed from backend!", tags: [] }]);
 
     root.setSettings(settings2);
 

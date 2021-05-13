@@ -10,33 +10,19 @@ import {
   resolvePath,
 } from "mobx-keystone";
 
-interface ITag {
+export interface ITag {
   label: string;
 }
 
-interface IForm1 {
+export interface IForm1 {
   name: string;
   tags: ITag[];
 }
 
-interface IForm2 {
+export interface IForm2 {
   name: string;
   tags: ITag[];
 }
-
-@model("myApp/Tag")
-export class Tag extends Model({ label: prop<string>("").withSetter() }) {}
-@model("myApp/Form1")
-export class Form1 extends Model({
-  tags: prop<Tag[]>(() => []).withSetter(),
-  name: prop<string>("").withSetter(),
-}) {}
-
-@model("myApp/Form2")
-export class Form2 extends Model({
-  tags: prop<Tag[]>(() => []).withSetter(),
-  name: prop<string>("").withSetter(),
-}) {}
 
 export namespace SettingsUtils {
   /**
@@ -70,9 +56,9 @@ export namespace SettingsUtils {
 @model("myApp/Settings")
 export class Settings extends Model({
   name: prop<string>("").withSetter(),
-  form1List: prop<Form1[]>(() => []).withSetter(),
-  form2List: prop<Form2[]>(() => []).withSetter(),
-  tags: prop<Tag[]>(() => []),
+  form1List: prop<IForm1[]>(() => []).withSetter(),
+  form2List: prop<IForm2[]>(() => []).withSetter(),
+  tags: prop<ITag[]>(() => []),
 }) {
   @modelAction arrayRemoveAt(array: any[], index: number) {
     array.splice(index, 1);
@@ -83,11 +69,11 @@ export class Settings extends Model({
   }
 
   @modelAction addForm1() {
-    this.form1List.push(new Form1({}));
+    this.form1List.push({ name: "", tags: [] });
   }
 
   @modelAction addForm2() {
-    this.form2List.push(new Form2({}));
+    this.form2List.push({ name: "", tags: [] });
   }
 }
 
