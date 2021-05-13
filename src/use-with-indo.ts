@@ -7,7 +7,11 @@ export class Tag extends Model({ label: prop<string>("").withSetter() }) {}
 export class Settings extends Model({
   name: prop<string>("").withSetter(),
   tags: prop<Tag[]>(() => []),
-}) {}
+}) {
+  @modelAction deleteTag(index: number) {
+    this.tags.splice(index, 1);
+  }
+}
 @model("myApp/Root")
 export class Root extends Model({
   settings: prop<Settings | undefined>(),

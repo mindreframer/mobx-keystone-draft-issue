@@ -16,8 +16,15 @@ describe("Root", () => {
     });
     root.setSettings(settings);
     const undoManagerSettingsDraft = undoMiddleware(root.settingsDraft!.data);
-    root.deleteTag(1);
-    logAll(root.settingsDraft, "DRAFT BEFORE COMMIT");
+    const draftModel = root.settingsDraft!;
+
+    root.deleteTag(0); // this is not recorded
+    logAll(root.settingsDraft, "DRAFT after modification by root");
+
+    draftModel.data.deleteTag(0); // this is recorded
+    logAll(root.settingsDraft, "DRAFT after direct modification");
+
+    root.settingsDraft?.data.setName("HELLO");
     logAll(undoManagerSettingsDraft.store.undoEvents, "UNDO EVENTS:");
     root.commit();
     logAll(root.settingsDraft, "DRAFT AFTER COMMIT");
