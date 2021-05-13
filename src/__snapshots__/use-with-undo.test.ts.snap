@@ -461,3 +461,10 @@ Array [
   },
 ]
 `;
+
+exports[`Root should support path resolution: form2_1 path 1`] = `
+Array [
+  "form2List",
+  0,
+]
+`;

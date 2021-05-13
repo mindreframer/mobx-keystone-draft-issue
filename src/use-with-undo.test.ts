@@ -1,7 +1,7 @@
 import { expect } from "@jest/globals";
 import { toJS } from "mobx";
 import { undoMiddleware } from "mobx-keystone";
-import { Root, Settings, Tag } from "./use-with-indo";
+import { Root, Settings, Tag, SettingsUtils } from "./use-with-indo";
 import "./commonSetup";
 
 const logAll = (v: any, label = "") => {
@@ -67,5 +67,27 @@ describe("Root", () => {
     expect(root.settings).toMatchSnapshot("settings before commit");
     root.commit();
     expect(root.settings).toMatchSnapshot("settings after commit");
+  });
+
+  it("should support path resolution", () => {
+    const root = new Root({});
+    const settings = new Settings({
+      tags: [new Tag({ label: "tag1" }), new Tag({ label: "tag2" })],
+    });
+    root.setSettings(settings);
+    const undoManagerSettingsDraft = undoMiddleware(root.settingsDraft!.data);
+    const draftModel = root.settingsDraft!;
+    draftModel.data.addForm1();
+    draftModel.data.addForm1();
+    draftModel.data.addForm2();
+    draftModel.data.addForm2();
+    const form2_1 = draftModel.data.form2List[0];
+
+    const form2_1_path = SettingsUtils.calculatePath(form2_1);
+    expect(form2_1_path).toMatchSnapshot("form2_1 path");
+    // expect(path).toMatchSnapshot("form2_1 path");
+
+    const not_found_path = SettingsUtils.calculatePath(root);
+    expect(not_found_path).toBeUndefined();
   });
 });

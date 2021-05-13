@@ -1,5 +1,14 @@
 import { observable } from "mobx";
-import { Draft, draft, model, Model, modelAction, prop } from "mobx-keystone";
+import {
+  Draft,
+  draft,
+  model,
+  Model,
+  modelAction,
+  prop,
+  findParentPath,
+  resolvePath,
+} from "mobx-keystone";
 
 @model("myApp/Tag")
 export class Tag extends Model({ label: prop<string>("").withSetter() }) {}
@@ -14,6 +23,22 @@ export class Form2 extends Model({
   tags: prop<Tag[]>(() => []).withSetter(),
   name: prop<string>("").withSetter(),
 }) {}
+
+export namespace SettingsUtils {
+  /**
+   * calculatePath -
+   * @param child
+   * @returns list of path segments for the given child under Settings
+   */
+  export const calculatePath = (child: any) => {
+    const res = findParentPath(
+      child,
+      (parent) => parent instanceof Settings,
+      5 // how deep?
+    );
+    return res?.path;
+  };
+}
 
 @model("myApp/Settings")
 export class Settings extends Model({
@@ -36,6 +61,10 @@ export class Settings extends Model({
 
   @modelAction addForm2() {
     this.form2List.push(new Form2({}));
+  }
+
+  resolvePath(path: string[]) {
+    return resolvePath(this, path);
   }
 }
 
