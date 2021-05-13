@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Root should support drafts wrapped in undo/redo middleware  1`] = `
+Array [
+  Object {
+    "actionName": "deleteTag",
+    "inversePatches": Array [
+      Object {
+        "op": "add",
+        "path": Array [
+          "tags",
+          0,
+        ],
+        "value": Object {
+          "$modelId": "id-4",
+          "$modelType": "myApp/Tag",
+          "label": "tag2",
+        },
+      },
+    ],
+    "patches": Array [
+      Object {
+        "op": "replace",
+        "path": Array [
+          "tags",
+          "length",
+        ],
+        "value": 0,
+      },
+    ],
+    "targetPath": Array [],
+    "type": "single",
+  },
+  Object {
+    "actionName": "setName",
+    "inversePatches": Array [
+      Object {
+        "op": "replace",
+        "path": Array [
+          "name",
+        ],
+        "value": "",
+      },
+    ],
+    "patches": Array [
+      Object {
+        "op": "replace",
+        "path": Array [
+          "name",
+        ],
+        "value": "HELLO",
+      },
+    ],
+    "targetPath": Array [],
+    "type": "single",
+  },
+]
+`;
+
+exports[`Root should support drafts wrapped in undo/redo middleware : DRAFT AFTER COMMIT 1`] = `
+Draft {
+  "data": Settings {
+    "$": Object {
+      "$modelId": "id-5",
+      "form1List": Array [],
+      "form2List": Array [],
+      "name": "HELLO",
+      "tags": Array [],
+    },
+    "$modelType": "myApp/Settings",
+  },
+  "originalData": Settings {
+    "$": Object {
+      "$modelId": "id-5",
+      "form1List": Array [],
+      "form2List": Array [],
+      "name": "HELLO",
+      "tags": Array [],
+    },
+    "$modelType": "myApp/Settings",
+  },
+}
+`;
+
+exports[`Root should support drafts wrapped in undo/redo middleware : DRAFT after direct modification 1`] = `
+Draft {
+  "data": Settings {
+    "$": Object {
+      "$modelId": "id-5",
+      "form1List": Array [],
+      "form2List": Array [],
+      "name": "",
+      "tags": Array [],
+    },
+    "$modelType": "myApp/Settings",
+  },
+  "originalData": Settings {
+    "$": Object {
+      "$modelId": "id-5",
+      "form1List": Array [],
+      "form2List": Array [],
+      "name": "",
+      "tags": Array [
+        Tag {
+          "$": Object {
+            "$modelId": "id-3",
+            "label": "tag1",
+          },
+          "$modelType": "myApp/Tag",
+        },
+        Tag {
+          "$": Object {
+            "$modelId": "id-4",
+            "label": "tag2",
+          },
+          "$modelType": "myApp/Tag",
+        },
+      ],
+    },
+    "$modelType": "myApp/Settings",
+  },
+}
+`;
+
+exports[`Root should support drafts wrapped in undo/redo middleware : DRAFT after modification by root 1`] = `
+Draft {
+  "data": Settings {
+    "$": Object {
+      "$modelId": "id-5",
+      "form1List": Array [],
+      "form2List": Array [],
+      "name": "",
+      "tags": Array [
+        Tag {
+          "$": Object {
+            "$modelId": "id-4",
+            "label": "tag2",
+          },
+          "$modelType": "myApp/Tag",
+        },
+      ],
+    },
+    "$modelType": "myApp/Settings",
+  },
+  "originalData": Settings {
+    "$": Object {
+      "$modelId": "id-5",
+      "form1List": Array [],
+      "form2List": Array [],
+      "name": "",
+      "tags": Array [
+        Tag {
+          "$": Object {
+            "$modelId": "id-3",
+            "label": "tag1",
+          },
+          "$modelType": "myApp/Tag",
+        },
+        Tag {
+          "$": Object {
+            "$modelId": "id-4",
+            "label": "tag2",
+          },
+          "$modelType": "myApp/Tag",
+        },
+      ],
+    },
+    "$modelType": "myApp/Settings",
+  },
+}
+`;

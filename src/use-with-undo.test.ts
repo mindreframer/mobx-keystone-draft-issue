@@ -2,6 +2,7 @@ import { expect } from "@jest/globals";
 import { toJS } from "mobx";
 import { undoMiddleware } from "mobx-keystone";
 import { Root, Settings, Tag } from "./use-with-indo";
+import "./commonSetup";
 
 const logAll = (v: any, label = "") => {
   console.log(label, JSON.stringify(toJS(v), null, 2));
@@ -19,14 +20,19 @@ describe("Root", () => {
     const draftModel = root.settingsDraft!;
 
     root.deleteTag(0); // this is not recorded
-    logAll(root.settingsDraft, "DRAFT after modification by root");
+    expect(root.settingsDraft).toMatchSnapshot(
+      "DRAFT after modification by root"
+    );
 
     draftModel.data.deleteTag(0); // this is recorded
-    logAll(root.settingsDraft, "DRAFT after direct modification");
+    expect(root.settingsDraft).toMatchSnapshot(
+      "DRAFT after direct modification"
+    );
 
     root.settingsDraft?.data.setName("HELLO");
-    logAll(undoManagerSettingsDraft.store.undoEvents, "UNDO EVENTS:");
+
+    expect(undoManagerSettingsDraft.store.undoEvents).toMatchSnapshot();
     root.commit();
-    logAll(root.settingsDraft, "DRAFT AFTER COMMIT");
+    expect(root.settingsDraft).toMatchSnapshot("DRAFT AFTER COMMIT");
   });
 });
