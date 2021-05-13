@@ -321,6 +321,97 @@ Array [
 ]
 `;
 
+exports[`Root should support drafts wrapped in undo/redo middleware : settings after commit 1`] = `
+Settings {
+  "$": Object {
+    "$modelId": "id-5",
+    "form1List": Array [
+      Form1 {
+        "$": Object {
+          "$modelId": "id-7",
+          "name": "",
+          "tags": Array [
+            Tag {
+              "$": Object {
+                "$modelId": "id-11",
+                "label": "tag1",
+              },
+              "$modelType": "myApp/Tag",
+            },
+            Tag {
+              "$": Object {
+                "$modelId": "id-12",
+                "label": "tag2",
+              },
+              "$modelType": "myApp/Tag",
+            },
+          ],
+        },
+        "$modelType": "myApp/Form1",
+      },
+      Form1 {
+        "$": Object {
+          "$modelId": "id-8",
+          "name": "",
+          "tags": Array [],
+        },
+        "$modelType": "myApp/Form1",
+      },
+    ],
+    "form2List": Array [
+      Form2 {
+        "$": Object {
+          "$modelId": "id-9",
+          "name": "",
+          "tags": Array [],
+        },
+        "$modelType": "myApp/Form2",
+      },
+      Form2 {
+        "$": Object {
+          "$modelId": "id-10",
+          "name": "",
+          "tags": Array [],
+        },
+        "$modelType": "myApp/Form2",
+      },
+    ],
+    "name": "HELLO",
+    "tags": Array [
+      Tag {
+        "$": Object {
+          "$modelId": "id-4",
+          "label": "tag2",
+        },
+        "$modelType": "myApp/Tag",
+      },
+    ],
+  },
+  "$modelType": "myApp/Settings",
+}
+`;
+
+exports[`Root should support drafts wrapped in undo/redo middleware : settings before commit 1`] = `
+Settings {
+  "$": Object {
+    "$modelId": "id-5",
+    "form1List": Array [],
+    "form2List": Array [],
+    "name": "HELLO",
+    "tags": Array [
+      Tag {
+        "$": Object {
+          "$modelId": "id-4",
+          "label": "tag2",
+        },
+        "$modelType": "myApp/Tag",
+      },
+    ],
+  },
+  "$modelType": "myApp/Settings",
+}
+`;
+
 exports[`Root should support drafts wrapped in undo/redo middleware : tags form1 - 0 - 2 tags added 1`] = `
 Array [
   Tag {

@@ -63,5 +63,9 @@ describe("Root", () => {
     expect(draftModel.data.form1List[0].tags).toMatchSnapshot(
       "tags form1 - 0 - redo -> 2 tags again"
     );
+
+    expect(root.settings).toMatchSnapshot("settings before commit");
+    root.commit();
+    expect(root.settings).toMatchSnapshot("settings after commit");
   });
 });
