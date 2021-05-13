@@ -8,6 +8,8 @@ import {
   modelAction,
   prop,
   resolvePath,
+  UndoManager,
+  undoMiddleware,
 } from "mobx-keystone";
 
 export interface ITag {
@@ -86,6 +88,7 @@ export class Root extends Model({
 }) {
   @observable.ref settingsDraft: Draft<Settings> | undefined;
   @observable.ref selectedChild: any;
+  undoManager: UndoManager | undefined;
   onInit() {
     if (this.settings) {
       this.setSettings(this.settings);
@@ -94,6 +97,7 @@ export class Root extends Model({
   @modelAction setSettings(val: Settings) {
     this.settings = val;
     this.settingsDraft = draft(this.settings);
+    this.undoManager = undoMiddleware(this.settingsDraft.data); // maybe reuse, if present to keep the undo events (?)
     this.setChildFromSelectionPath();
   }
   @modelAction commit() {

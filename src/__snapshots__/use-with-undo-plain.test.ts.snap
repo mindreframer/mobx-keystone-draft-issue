@@ -32,7 +32,7 @@ exports[`Root should support drafts wrapped in undo/redo middleware : DRAFT AFTE
 Draft {
   "data": Settings {
     "$": Object {
-      "$modelId": "id-3",
+      "$modelId": "id-4",
       "form1List": Array [],
       "form2List": Array [],
       "name": "HELLO",
@@ -46,7 +46,7 @@ Draft {
   },
   "originalData": Settings {
     "$": Object {
-      "$modelId": "id-3",
+      "$modelId": "id-4",
       "form1List": Array [],
       "form2List": Array [],
       "name": "HELLO",
@@ -65,7 +65,7 @@ exports[`Root should support drafts wrapped in undo/redo middleware : DRAFT afte
 Draft {
   "data": Settings {
     "$": Object {
-      "$modelId": "id-3",
+      "$modelId": "id-4",
       "form1List": Array [],
       "form2List": Array [],
       "name": "",
@@ -79,7 +79,7 @@ Draft {
   },
   "originalData": Settings {
     "$": Object {
-      "$modelId": "id-3",
+      "$modelId": "id-4",
       "form1List": Array [],
       "form2List": Array [],
       "name": "",
@@ -320,7 +320,7 @@ Array [
 exports[`Root should support drafts wrapped in undo/redo middleware : settings after commit 1`] = `
 Settings {
   "$": Object {
-    "$modelId": "id-3",
+    "$modelId": "id-4",
     "form1List": Array [
       Object {
         "name": "",
@@ -362,7 +362,7 @@ Settings {
 exports[`Root should support drafts wrapped in undo/redo middleware : settings before commit 1`] = `
 Settings {
   "$": Object {
-    "$modelId": "id-3",
+    "$modelId": "id-4",
     "form1List": Array [],
     "form2List": Array [],
     "name": "HELLO",
