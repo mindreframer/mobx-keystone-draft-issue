@@ -97,7 +97,7 @@ export class Root extends Model({
   @modelAction setSettings(val: Settings) {
     this.settings = val;
     this.settingsDraft = draft(this.settings);
-    this.undoManager = undoMiddleware(this.settingsDraft.data); // maybe reuse, if present to keep the undo events (?)
+    this.undoManager = undoMiddleware(this.settingsDraft.data);
     this.setChildFromSelectionPath();
   }
   @modelAction commit() {

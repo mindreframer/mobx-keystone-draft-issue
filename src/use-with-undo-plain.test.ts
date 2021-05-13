@@ -120,6 +120,14 @@ describe("Root", () => {
 
     root.setSettings(settings2);
 
+    const draftModel2 = root.settingsDraft!;
+    draftModel2.data.addForm1();
+    expect(root.undoManager!.canUndo).toBe(true);
+    root.undoManager!.undo();
+    expect(draftModel2.data.form1List).toStrictEqual([]);
+    root.undoManager!.redo();
+    expect(draftModel2.data.form1List).toStrictEqual([{ name: "", tags: [] }]);
+
     expect(root.selectionPath).toMatchSnapshot("selectionPath");
     expect(root.selectedChild).toMatchSnapshot("selectedChild  - from backend");
   });
