@@ -1,5 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Root should remember selected path and restore it on settings update: selectedChild  - from backend 1`] = `
+Form2 {
+  "$": Object {
+    "$modelId": "id-12",
+    "name": "changed from backend!",
+    "tags": Array [],
+  },
+  "$modelType": "myApp/Form2",
+}
+`;
+
+exports[`Root should remember selected path and restore it on settings update: selectedChild 1`] = `
+Form2 {
+  "$": Object {
+    "$modelId": "id-7",
+    "name": "",
+    "tags": Array [],
+  },
+  "$modelType": "myApp/Form2",
+}
+`;
+
+exports[`Root should remember selected path and restore it on settings update: selectionPath 1`] = `
+Array [
+  "form2List",
+  0,
+]
+`;
+
+exports[`Root should remember selected path and restore it on settings update: selectionPath 2`] = `
+Array [
+  "form2List",
+  0,
+]
+`;
+
 exports[`Root should support drafts wrapped in undo/redo middleware : DRAFT AFTER COMMIT 1`] = `
 Draft {
   "data": Settings {

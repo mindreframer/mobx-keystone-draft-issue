@@ -2,11 +2,11 @@ import { observable } from "mobx";
 import {
   Draft,
   draft,
+  findParentPath,
   model,
   Model,
   modelAction,
   prop,
-  findParentPath,
   resolvePath,
 } from "mobx-keystone";
 
@@ -26,17 +26,30 @@ export class Form2 extends Model({
 
 export namespace SettingsUtils {
   /**
-   * calculatePath -
+   * pathFromChild
    * @param child
    * @returns list of path segments for the given child under Settings
    */
-  export const calculatePath = (child: any) => {
+  export const pathFromChild = (child: any) => {
     const res = findParentPath(
       child,
       (parent) => parent instanceof Settings,
       5 // how deep?
     );
     return res?.path;
+  };
+
+  /**
+   *
+   * @param path list of path segments
+   * @param instance settings instance to resolve the path on
+   * @returns found child instance / undefined
+   */
+  export const childFromPath = (path: Path | undefined, instance: Settings) => {
+    if (!path) {
+      return;
+    }
+    return resolvePath(instance, path);
   };
 }
 
@@ -62,17 +75,17 @@ export class Settings extends Model({
   @modelAction addForm2() {
     this.form2List.push(new Form2({}));
   }
-
-  resolvePath(path: string[]) {
-    return resolvePath(this, path);
-  }
 }
+
+type Path = ReadonlyArray<string | number>;
 
 @model("myApp/Root")
 export class Root extends Model({
   settings: prop<Settings | undefined>(),
+  selectionPath: prop<Path | undefined>(),
 }) {
   @observable.ref settingsDraft: Draft<Settings> | undefined;
+  @observable.ref selectedChild: any;
   onInit() {
     if (this.settings) {
       this.setSettings(this.settings);
@@ -81,12 +94,29 @@ export class Root extends Model({
   @modelAction setSettings(val: Settings) {
     this.settings = val;
     this.settingsDraft = draft(this.settings);
+    this.setChildFromSelectionPath();
   }
   @modelAction commit() {
     this.settingsDraft?.commit();
   }
 
-  @modelAction deleteTag(index: number) {
-    this.settingsDraft?.data.tags.splice(index, 1);
+  @modelAction setSelectionPath(child: any) {
+    this.selectedChild = child;
+    this.selectionPath = SettingsUtils.pathFromChild(child);
+  }
+
+  @modelAction setChildFromSelectionPath() {
+    if (!this.selectionPath) {
+      return;
+    }
+    const res = SettingsUtils.childFromPath(
+      this.selectionPath,
+      this.settingsDraft?.data!
+    );
+    if (res?.resolved) {
+      this.selectedChild = res.value;
+    } else {
+      this.selectedChild = undefined;
+    }
   }
 }

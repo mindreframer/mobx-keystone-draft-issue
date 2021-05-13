@@ -1,8 +1,8 @@
 import { expect } from "@jest/globals";
 import { toJS } from "mobx";
 import { undoMiddleware } from "mobx-keystone";
-import { Root, Settings, Tag, SettingsUtils } from "./use-with-indo";
 import "./commonSetup";
+import { Form2, Root, Settings, SettingsUtils, Tag } from "./use-with-indo";
 
 const logAll = (v: any, label = "") => {
   console.log(label, JSON.stringify(toJS(v), null, 2));
@@ -83,11 +83,40 @@ describe("Root", () => {
     draftModel.data.addForm2();
     const form2_1 = draftModel.data.form2List[0];
 
-    const form2_1_path = SettingsUtils.calculatePath(form2_1);
+    const form2_1_path = SettingsUtils.pathFromChild(form2_1);
     expect(form2_1_path).toMatchSnapshot("form2_1 path");
-    // expect(path).toMatchSnapshot("form2_1 path");
 
-    const not_found_path = SettingsUtils.calculatePath(root);
+    const not_found_path = SettingsUtils.pathFromChild(root);
     expect(not_found_path).toBeUndefined();
+  });
+
+  it("should remember selected path and restore it on settings update", () => {
+    const root = new Root({});
+    const settings = new Settings({
+      tags: [new Tag({ label: "tag1" }), new Tag({ label: "tag2" })],
+    });
+    root.setSettings(settings);
+    const draftModel = root.settingsDraft!;
+    draftModel.data.addForm1();
+    draftModel.data.addForm1();
+    draftModel.data.addForm2();
+    draftModel.data.addForm2();
+
+    const form2_1 = draftModel.data.form2List[0];
+    root.setSelectionPath(form2_1);
+    expect(root.selectionPath).toMatchSnapshot("selectionPath");
+    expect(root.selectedChild).toMatchSnapshot("selectedChild");
+
+    // prepare new settings with different data, imagine this is the response from the backend
+
+    const settings2 = new Settings({
+      tags: [new Tag({ label: "tag1" }), new Tag({ label: "tag2" })],
+    });
+    settings2.setForm2List([new Form2({ name: "changed from backend!" })]);
+
+    root.setSettings(settings2);
+
+    expect(root.selectionPath).toMatchSnapshot("selectionPath");
+    expect(root.selectedChild).toMatchSnapshot("selectedChild  - from backend");
   });
 });
