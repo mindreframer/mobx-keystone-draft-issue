@@ -5,13 +5,13 @@ import { Draft, draft, model, Model, modelAction, prop } from "mobx-keystone";
 export class Tag extends Model({ label: prop<string>("").withSetter() }) {}
 @model("myApp/Form1")
 export class Form1 extends Model({
-  tags: prop<Tag[]>().withSetter(),
+  tags: prop<Tag[]>(() => []).withSetter(),
   name: prop<string>("").withSetter(),
 }) {}
 
 @model("myApp/Form2")
 export class Form2 extends Model({
-  tags: prop<Tag[]>().withSetter(),
+  tags: prop<Tag[]>(() => []).withSetter(),
   name: prop<string>("").withSetter(),
 }) {}
 
@@ -22,8 +22,20 @@ export class Settings extends Model({
   form2List: prop<Form2[]>(() => []).withSetter(),
   tags: prop<Tag[]>(() => []),
 }) {
-  @modelAction deleteTag(index: number) {
-    this.tags.splice(index, 1);
+  @modelAction arrayRemoveAt(array: any[], index: number) {
+    array.splice(index, 1);
+  }
+
+  @modelAction arrayPush(array: any[], item: any) {
+    array.push(item);
+  }
+
+  @modelAction addForm1() {
+    this.form1List.push(new Form1({}));
+  }
+
+  @modelAction addForm2() {
+    this.form2List.push(new Form2({}));
   }
 }
 

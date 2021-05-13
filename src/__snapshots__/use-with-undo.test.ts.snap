@@ -1,9 +1,98 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Root should support drafts wrapped in undo/redo middleware  1`] = `
+exports[`Root should support drafts wrapped in undo/redo middleware : DRAFT AFTER COMMIT 1`] = `
+Draft {
+  "data": Settings {
+    "$": Object {
+      "$modelId": "id-5",
+      "form1List": Array [],
+      "form2List": Array [],
+      "name": "HELLO",
+      "tags": Array [
+        Tag {
+          "$": Object {
+            "$modelId": "id-4",
+            "label": "tag2",
+          },
+          "$modelType": "myApp/Tag",
+        },
+      ],
+    },
+    "$modelType": "myApp/Settings",
+  },
+  "originalData": Settings {
+    "$": Object {
+      "$modelId": "id-5",
+      "form1List": Array [],
+      "form2List": Array [],
+      "name": "HELLO",
+      "tags": Array [
+        Tag {
+          "$": Object {
+            "$modelId": "id-4",
+            "label": "tag2",
+          },
+          "$modelType": "myApp/Tag",
+        },
+      ],
+    },
+    "$modelType": "myApp/Settings",
+  },
+}
+`;
+
+exports[`Root should support drafts wrapped in undo/redo middleware : DRAFT after direct modification 1`] = `
+Draft {
+  "data": Settings {
+    "$": Object {
+      "$modelId": "id-5",
+      "form1List": Array [],
+      "form2List": Array [],
+      "name": "",
+      "tags": Array [
+        Tag {
+          "$": Object {
+            "$modelId": "id-4",
+            "label": "tag2",
+          },
+          "$modelType": "myApp/Tag",
+        },
+      ],
+    },
+    "$modelType": "myApp/Settings",
+  },
+  "originalData": Settings {
+    "$": Object {
+      "$modelId": "id-5",
+      "form1List": Array [],
+      "form2List": Array [],
+      "name": "",
+      "tags": Array [
+        Tag {
+          "$": Object {
+            "$modelId": "id-3",
+            "label": "tag1",
+          },
+          "$modelType": "myApp/Tag",
+        },
+        Tag {
+          "$": Object {
+            "$modelId": "id-4",
+            "label": "tag2",
+          },
+          "$modelType": "myApp/Tag",
+        },
+      ],
+    },
+    "$modelType": "myApp/Settings",
+  },
+}
+`;
+
+exports[`Root should support drafts wrapped in undo/redo middleware : Undo Events 1`] = `
 Array [
   Object {
-    "actionName": "deleteTag",
+    "actionName": "arrayRemoveAt",
     "inversePatches": Array [
       Object {
         "op": "add",
@@ -12,20 +101,19 @@ Array [
           0,
         ],
         "value": Object {
-          "$modelId": "id-4",
+          "$modelId": "id-3",
           "$modelType": "myApp/Tag",
-          "label": "tag2",
+          "label": "tag1",
         },
       },
     ],
     "patches": Array [
       Object {
-        "op": "replace",
+        "op": "remove",
         "path": Array [
           "tags",
-          "length",
+          0,
         ],
-        "value": 0,
       },
     ],
     "targetPath": Array [],
@@ -57,115 +145,228 @@ Array [
 ]
 `;
 
-exports[`Root should support drafts wrapped in undo/redo middleware : DRAFT AFTER COMMIT 1`] = `
-Draft {
-  "data": Settings {
-    "$": Object {
-      "$modelId": "id-5",
-      "form1List": Array [],
-      "form2List": Array [],
-      "name": "HELLO",
-      "tags": Array [],
-    },
-    "$modelType": "myApp/Settings",
+exports[`Root should support drafts wrapped in undo/redo middleware : Undo Events with forms 1`] = `
+Array [
+  Object {
+    "actionName": "arrayRemoveAt",
+    "inversePatches": Array [
+      Object {
+        "op": "add",
+        "path": Array [
+          "tags",
+          0,
+        ],
+        "value": Object {
+          "$modelId": "id-3",
+          "$modelType": "myApp/Tag",
+          "label": "tag1",
+        },
+      },
+    ],
+    "patches": Array [
+      Object {
+        "op": "remove",
+        "path": Array [
+          "tags",
+          0,
+        ],
+      },
+    ],
+    "targetPath": Array [],
+    "type": "single",
   },
-  "originalData": Settings {
-    "$": Object {
-      "$modelId": "id-5",
-      "form1List": Array [],
-      "form2List": Array [],
-      "name": "HELLO",
-      "tags": Array [],
-    },
-    "$modelType": "myApp/Settings",
+  Object {
+    "actionName": "setName",
+    "inversePatches": Array [
+      Object {
+        "op": "replace",
+        "path": Array [
+          "name",
+        ],
+        "value": "",
+      },
+    ],
+    "patches": Array [
+      Object {
+        "op": "replace",
+        "path": Array [
+          "name",
+        ],
+        "value": "HELLO",
+      },
+    ],
+    "targetPath": Array [],
+    "type": "single",
   },
-}
+  Object {
+    "actionName": "addForm1",
+    "inversePatches": Array [
+      Object {
+        "op": "replace",
+        "path": Array [
+          "form1List",
+          "length",
+        ],
+        "value": 0,
+      },
+    ],
+    "patches": Array [
+      Object {
+        "op": "add",
+        "path": Array [
+          "form1List",
+          0,
+        ],
+        "value": Object {
+          "$modelId": "id-7",
+          "$modelType": "myApp/Form1",
+          "name": "",
+          "tags": Array [],
+        },
+      },
+    ],
+    "targetPath": Array [],
+    "type": "single",
+  },
+  Object {
+    "actionName": "addForm1",
+    "inversePatches": Array [
+      Object {
+        "op": "replace",
+        "path": Array [
+          "form1List",
+          "length",
+        ],
+        "value": 1,
+      },
+    ],
+    "patches": Array [
+      Object {
+        "op": "add",
+        "path": Array [
+          "form1List",
+          1,
+        ],
+        "value": Object {
+          "$modelId": "id-8",
+          "$modelType": "myApp/Form1",
+          "name": "",
+          "tags": Array [],
+        },
+      },
+    ],
+    "targetPath": Array [],
+    "type": "single",
+  },
+  Object {
+    "actionName": "addForm2",
+    "inversePatches": Array [
+      Object {
+        "op": "replace",
+        "path": Array [
+          "form2List",
+          "length",
+        ],
+        "value": 0,
+      },
+    ],
+    "patches": Array [
+      Object {
+        "op": "add",
+        "path": Array [
+          "form2List",
+          0,
+        ],
+        "value": Object {
+          "$modelId": "id-9",
+          "$modelType": "myApp/Form2",
+          "name": "",
+          "tags": Array [],
+        },
+      },
+    ],
+    "targetPath": Array [],
+    "type": "single",
+  },
+  Object {
+    "actionName": "addForm2",
+    "inversePatches": Array [
+      Object {
+        "op": "replace",
+        "path": Array [
+          "form2List",
+          "length",
+        ],
+        "value": 1,
+      },
+    ],
+    "patches": Array [
+      Object {
+        "op": "add",
+        "path": Array [
+          "form2List",
+          1,
+        ],
+        "value": Object {
+          "$modelId": "id-10",
+          "$modelType": "myApp/Form2",
+          "name": "",
+          "tags": Array [],
+        },
+      },
+    ],
+    "targetPath": Array [],
+    "type": "single",
+  },
+]
 `;
 
-exports[`Root should support drafts wrapped in undo/redo middleware : DRAFT after direct modification 1`] = `
-Draft {
-  "data": Settings {
+exports[`Root should support drafts wrapped in undo/redo middleware : tags form1 - 0 - 2 tags added 1`] = `
+Array [
+  Tag {
     "$": Object {
-      "$modelId": "id-5",
-      "form1List": Array [],
-      "form2List": Array [],
-      "name": "",
-      "tags": Array [],
+      "$modelId": "id-11",
+      "label": "tag1",
     },
-    "$modelType": "myApp/Settings",
+    "$modelType": "myApp/Tag",
   },
-  "originalData": Settings {
+  Tag {
     "$": Object {
-      "$modelId": "id-5",
-      "form1List": Array [],
-      "form2List": Array [],
-      "name": "",
-      "tags": Array [
-        Tag {
-          "$": Object {
-            "$modelId": "id-3",
-            "label": "tag1",
-          },
-          "$modelType": "myApp/Tag",
-        },
-        Tag {
-          "$": Object {
-            "$modelId": "id-4",
-            "label": "tag2",
-          },
-          "$modelType": "myApp/Tag",
-        },
-      ],
+      "$modelId": "id-12",
+      "label": "tag2",
     },
-    "$modelType": "myApp/Settings",
+    "$modelType": "myApp/Tag",
   },
-}
+]
 `;
 
-exports[`Root should support drafts wrapped in undo/redo middleware : DRAFT after modification by root 1`] = `
-Draft {
-  "data": Settings {
+exports[`Root should support drafts wrapped in undo/redo middleware : tags form1 - 0 - redo -> 2 tags again 1`] = `
+Array [
+  Tag {
     "$": Object {
-      "$modelId": "id-5",
-      "form1List": Array [],
-      "form2List": Array [],
-      "name": "",
-      "tags": Array [
-        Tag {
-          "$": Object {
-            "$modelId": "id-4",
-            "label": "tag2",
-          },
-          "$modelType": "myApp/Tag",
-        },
-      ],
+      "$modelId": "id-11",
+      "label": "tag1",
     },
-    "$modelType": "myApp/Settings",
+    "$modelType": "myApp/Tag",
   },
-  "originalData": Settings {
+  Tag {
     "$": Object {
-      "$modelId": "id-5",
-      "form1List": Array [],
-      "form2List": Array [],
-      "name": "",
-      "tags": Array [
-        Tag {
-          "$": Object {
-            "$modelId": "id-3",
-            "label": "tag1",
-          },
-          "$modelType": "myApp/Tag",
-        },
-        Tag {
-          "$": Object {
-            "$modelId": "id-4",
-            "label": "tag2",
-          },
-          "$modelType": "myApp/Tag",
-        },
-      ],
+      "$modelId": "id-12",
+      "label": "tag2",
     },
-    "$modelType": "myApp/Settings",
+    "$modelType": "myApp/Tag",
   },
-}
+]
+`;
+
+exports[`Root should support drafts wrapped in undo/redo middleware : tags form1 - 0 - undo -> 1 tag left 1`] = `
+Array [
+  Tag {
+    "$": Object {
+      "$modelId": "id-11",
+      "label": "tag1",
+    },
+    "$modelType": "myApp/Tag",
+  },
+]
 `;
